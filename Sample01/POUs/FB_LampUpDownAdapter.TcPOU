@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="FB_LampUpDownAdapter" Id="{5ca69942-f3d0-4276-8ef2-8cc1c698a883}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC FB_LampUpDownAdapter EXTENDS FB_Lamp
+VAR
+	fbLampUpDown		: FB_LampUpDown;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="DimDown" Id="{8c4c7f5f-ad02-4e3b-97a6-e863a99be8f5}">
+      <Declaration><![CDATA[// Reduces the control value by 5 in the range of 10 to 100.
+METHOD PUBLIC DimDown
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (fbLampUpDown.nLightLevel >= 15) THEN
+	fbLampUpDown.OneStepDown();
+	fbLampUpDown.OneStepDown();
+	fbLampUpDown.OneStepDown();
+	fbLampUpDown.OneStepDown();
+	fbLampUpDown.OneStepDown();
+END_IF
+IF (_ipObserver <> 0) THEN
+	_ipObserver.Update(fbLampUpDown.nLightLevel);
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="DimUp" Id="{403b05bf-aacb-4c8b-8952-69cec07e41d6}">
+      <Declaration><![CDATA[// Increments the control value by 5 in the range of 10 to 100.
+METHOD PUBLIC DimUp
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (fbLampUpDown.nLightLevel <= 95) THEN	
+	fbLampUpDown.OneStepUp();
+	fbLampUpDown.OneStepUp();
+	fbLampUpDown.OneStepUp();
+	fbLampUpDown.OneStepUp();
+	fbLampUpDown.OneStepUp();
+END_IF
+IF (_ipObserver <> 0) THEN
+	_ipObserver.Update(fbLampUpDown.nLightLevel);
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Off" Id="{b8b7ff35-eb11-4a8d-a9df-7efa1e97a4f1}">
+      <Declaration><![CDATA[// Sets the control value to 0.
+METHOD PUBLIC Off
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (fbLampUpDown.nLightLevel > 0) THEN
+	fbLampUpDown.OnOff();
+END_IF
+IF (_ipObserver <> 0) THEN
+	_ipObserver.Update(fbLampUpDown.nLightLevel);
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="On" Id="{d1eb4880-a8ae-402a-909f-c11ffa6132c8}">
+      <Declaration><![CDATA[// Sets the control value to 100.
+METHOD PUBLIC On
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (fbLampUpDown.nLightLevel = 0) THEN
+	fbLampUpDown.OnOff();
+END_IF
+IF (_ipObserver <> 0) THEN
+	_ipObserver.Update(fbLampUpDown.nLightLevel);
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_LampUpDownAdapter">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_LampUpDownAdapter.DimDown">
+      <LineId Id="13" Count="5" />
+      <LineId Id="4" Count="0" />
+      <LineId Id="23" Count="1" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="25" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_LampUpDownAdapter.DimUp">
+      <LineId Id="13" Count="5" />
+      <LineId Id="4" Count="0" />
+      <LineId Id="22" Count="2" />
+      <LineId Id="21" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_LampUpDownAdapter.Off">
+      <LineId Id="5" Count="1" />
+      <LineId Id="4" Count="0" />
+      <LineId Id="10" Count="2" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_LampUpDownAdapter.On">
+      <LineId Id="5" Count="1" />
+      <LineId Id="4" Count="0" />
+      <LineId Id="10" Count="2" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

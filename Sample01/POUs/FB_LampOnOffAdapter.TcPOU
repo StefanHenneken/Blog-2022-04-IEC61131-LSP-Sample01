@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="FB_LampOnOffAdapter" Id="{6861e56f-4925-4d48-b460-c6a29e1d7b4e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC FB_LampOnOffAdapter EXTENDS FB_Lamp 
+VAR
+	fbLampOnOff			: FB_LampOnOff;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="DimDown" Id="{84e11814-c597-4c8a-ba45-dc1836b1746d}">
+      <Declaration><![CDATA[// Reduces the control value by 5 in the range of 10 to 100.
+METHOD PUBLIC DimDown
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbLampOnOff.DimDown();
+IF (_ipObserver <> 0) THEN
+	_ipObserver.Update(fbLampOnOff.nLightLevel);
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="DimUp" Id="{e8ed69ba-902f-4e03-b4ed-fdbdf6572586}">
+      <Declaration><![CDATA[// Increments the control value by 5 in the range of 10 to 100.
+METHOD PUBLIC DimUp
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbLampOnOff.DimUp();
+IF (_ipObserver <> 0) THEN
+	_ipObserver.Update(fbLampOnOff.nLightLevel);
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Off" Id="{f59becd6-e49e-44aa-ad75-e8c059a04953}">
+      <Declaration><![CDATA[// Sets the control value to 0.
+METHOD PUBLIC Off
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbLampOnOff.Off();
+IF (_ipObserver <> 0) THEN
+	_ipObserver.Update(fbLampOnOff.nLightLevel);
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="On" Id="{b40e68d0-0aa6-4e9c-8d59-67b15bde7b97}">
+      <Declaration><![CDATA[// Sets the control value to 100.
+METHOD PUBLIC On
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbLampOnOff.On();
+IF (_ipObserver <> 0) THEN
+	_ipObserver.Update(fbLampOnOff.nLightLevel);
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_LampOnOffAdapter">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_LampOnOffAdapter.DimDown">
+      <LineId Id="7" Count="0" />
+      <LineId Id="9" Count="2" />
+      <LineId Id="8" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_LampOnOffAdapter.DimUp">
+      <LineId Id="7" Count="0" />
+      <LineId Id="10" Count="1" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="12" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_LampOnOffAdapter.Off">
+      <LineId Id="14" Count="0" />
+      <LineId Id="17" Count="1" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="19" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_LampOnOffAdapter.On">
+      <LineId Id="9" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="6" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="MAIN" Id="{ef33b4c1-c95d-4cf8-b9bf-7d346bd93484}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	fbController				: FB_Controller();
+	fbLampOnOffAdapter			: FB_LampOnOffAdapter();
+	fbLampSetDirectAdapter		: FB_LampSetDirectAdapter();
+	fbLampUpDownAdapter			: FB_LampUpDownAdapter();
+	fbLampSetDirectDALIAdapter	: FB_LampSetDirectDALIAdapter();	
+	nSetLamp					: INT;
+	bDimUp, bDimDown			: BOOL;
+	bOff, bOn					: BOOL;
+	nLightLevel					: BYTE;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE nSetLamp OF
+	1:
+		fbController.refActiveLamp REF= fbLampOnOffAdapter;
+		nSetLamp := 0;
+	2:
+		fbController.refActiveLamp REF= fbLampSetDirectAdapter;
+		nSetLamp := 0;
+	3:
+		fbController.refActiveLamp REF= fbLampUpDownAdapter;
+		nSetLamp := 0;
+	4:
+		fbController.refActiveLamp REF= fbLampSetDirectDALIAdapter;
+		nSetLamp := 0;
+END_CASE
+
+nLightLevel := fbController.fbActualValue.nValue;
+
+IF (bDimUp) THEN
+	fbController.DimUp();
+	bDimUp := FALSE;
+END_IF
+
+IF (bDimDown) THEN
+	fbController.DimDown();
+	bDimDown := FALSE;
+END_IF
+
+IF (bOff) THEN
+	fbController.Off();
+	bOff := FALSE;
+END_IF
+
+IF (bOn) THEN
+	fbController.On();
+	bOn := FALSE;
+END_IF
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="98" Count="0" />
+      <LineId Id="77" Count="0" />
+      <LineId Id="81" Count="0" />
+      <LineId Id="79" Count="1" />
+      <LineId Id="95" Count="1" />
+      <LineId Id="99" Count="2" />
+      <LineId Id="114" Count="1" />
+      <LineId Id="113" Count="0" />
+      <LineId Id="97" Count="0" />
+      <LineId Id="137" Count="0" />
+      <LineId Id="136" Count="0" />
+      <LineId Id="124" Count="0" />
+      <LineId Id="57" Count="1" />
+      <LineId Id="71" Count="0" />
+      <LineId Id="59" Count="3" />
+      <LineId Id="72" Count="0" />
+      <LineId Id="63" Count="3" />
+      <LineId Id="73" Count="0" />
+      <LineId Id="67" Count="3" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="55" Count="0" />
+      <LineId Id="117" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

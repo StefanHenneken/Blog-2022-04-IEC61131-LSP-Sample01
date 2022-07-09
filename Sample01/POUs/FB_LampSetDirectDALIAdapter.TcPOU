@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="FB_LampSetDirectDALIAdapter" Id="{06500677-1ca5-4f9c-bbca-0dcd0188c3d3}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC FB_LampSetDirectDALIAdapter EXTENDS FB_Lamp
+VAR
+	fbLampSetDirectDALI		: FB_LampSetDirectDALI;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="DimDown" Id="{7a075584-61ed-49e7-aa80-b192dd0ff064}">
+      <Declaration><![CDATA[// Reduces the control value by 5 in the range of 10 to 254.
+METHOD PUBLIC DimDown
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (fbLampSetDirectDALI.nLightLevel >= 15) THEN
+	fbLampSetDirectDALI.SetLightLevel(fbLampSetDirectDALI.nLightLevel - 5);
+END_IF
+IF (_ipObserver <> 0) THEN
+	_ipObserver.Update(fbLampSetDirectDALI.nLightLevel);
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="DimUp" Id="{85c48a51-31d1-4f15-b30f-dd92b0da00a7}">
+      <Declaration><![CDATA[// Increments the control value by 5 in the range of 10 to 254.
+METHOD PUBLIC DimUp
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (fbLampSetDirectDALI.nLightLevel <= 249) THEN
+	fbLampSetDirectDALI.SetLightLevel(fbLampSetDirectDALI.nLightLevel + 5);
+END_IF
+IF (_ipObserver <> 0) THEN
+	_ipObserver.Update(fbLampSetDirectDALI.nLightLevel);
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Off" Id="{3106f1b1-a466-4aaf-bf7c-b90c0d8b4c22}">
+      <Declaration><![CDATA[// Sets the control value to 0.
+METHOD PUBLIC Off
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbLampSetDirectDALI.SetLightLevel(0);
+IF (_ipObserver <> 0) THEN
+	_ipObserver.Update(fbLampSetDirectDALI.nLightLevel);
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="On" Id="{2094a9c9-f771-43f7-aa2d-1a5adb3e0e4e}">
+      <Declaration><![CDATA[// Sets the control value to 254.
+METHOD PUBLIC On
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbLampSetDirectDALI.SetLightLevel(254);
+IF (_ipObserver <> 0) THEN
+	_ipObserver.Update(fbLampSetDirectDALI.nLightLevel);
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_LampSetDirectDALIAdapter">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_LampSetDirectDALIAdapter.DimDown">
+      <LineId Id="5" Count="1" />
+      <LineId Id="4" Count="0" />
+      <LineId Id="10" Count="2" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_LampSetDirectDALIAdapter.DimUp">
+      <LineId Id="5" Count="1" />
+      <LineId Id="4" Count="0" />
+      <LineId Id="10" Count="2" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_LampSetDirectDALIAdapter.Off">
+      <LineId Id="4" Count="0" />
+      <LineId Id="8" Count="2" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_LampSetDirectDALIAdapter.On">
+      <LineId Id="4" Count="0" />
+      <LineId Id="8" Count="2" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
