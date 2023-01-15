@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="FB_LampSetDirectDALI" Id="{508b93c0-0778-4ff1-aedf-858d8647b6a3}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC FB_LampSetDirectDALI EXTENDS FB_LampSetDirect
 VAR
@@ -12,18 +12,12 @@ END_VAR
       <Declaration><![CDATA[// Sets the control value of the DALI lamp to a value between 0 and 254.
 METHOD PUBLIC SetLightLevel
 VAR_INPUT
-	nNewLightLevel		: BYTE(0..254);
+	nNewLightLevel		: USINT(0..254);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[nLightLevel := nNewLightLevel;]]></ST>
       </Implementation>
     </Method>
-    <LineIds Name="FB_LampSetDirectDALI">
-      <LineId Id="9" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_LampSetDirectDALI.SetLightLevel">
-      <LineId Id="5" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>

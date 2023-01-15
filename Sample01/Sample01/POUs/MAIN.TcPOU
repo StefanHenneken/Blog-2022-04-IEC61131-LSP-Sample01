@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="MAIN" Id="{ef33b4c1-c95d-4cf8-b9bf-7d346bd93484}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
@@ -11,7 +11,7 @@ VAR
 	nSetLamp					: INT;
 	bDimUp, bDimDown			: BOOL;
 	bOff, bOn					: BOOL;
-	nLightLevel					: BYTE;
+	nLightLevel					: USINT;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -53,29 +53,5 @@ IF (bOn) THEN
 END_IF
 ]]></ST>
     </Implementation>
-    <LineIds Name="MAIN">
-      <LineId Id="98" Count="0" />
-      <LineId Id="77" Count="0" />
-      <LineId Id="81" Count="0" />
-      <LineId Id="79" Count="1" />
-      <LineId Id="95" Count="1" />
-      <LineId Id="99" Count="2" />
-      <LineId Id="114" Count="1" />
-      <LineId Id="113" Count="0" />
-      <LineId Id="97" Count="0" />
-      <LineId Id="137" Count="0" />
-      <LineId Id="136" Count="0" />
-      <LineId Id="124" Count="0" />
-      <LineId Id="57" Count="1" />
-      <LineId Id="71" Count="0" />
-      <LineId Id="59" Count="3" />
-      <LineId Id="72" Count="0" />
-      <LineId Id="63" Count="3" />
-      <LineId Id="73" Count="0" />
-      <LineId Id="67" Count="3" />
-      <LineId Id="74" Count="0" />
-      <LineId Id="55" Count="0" />
-      <LineId Id="117" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>
